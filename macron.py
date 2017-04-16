@@ -4,7 +4,7 @@ from random import randint
 
 nbWords = 8
 
-listWords =
+listWords = \
 ["projet","rassembler","avancer","réconcilier","mutation","réel","ambition",
 "renouvellement","progressiste","égalitarisme","partenariat",
 "esprit d'initiative","innovation","pénibilité","souplesse",
@@ -21,4 +21,4 @@ while i < nbWords:
         i = i+1
 
 for index in selectedIndices:
-    print listWords[index]
+    print " ", listWords[index]
