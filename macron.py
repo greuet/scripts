@@ -12,7 +12,7 @@ listWords = \
 "modernité","charte","droits et devoirs","numérique","responsabilité","combat",
 "pardon de vous le dire","efficace"]
 
-selectedIndices = [randint(0,len(listWords)-1)]
+selectedIndices = [0]
 i = 0
 while i < nbWords:
     randIndex = randint(0,len(listWords)-1)
