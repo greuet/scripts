@@ -25,7 +25,7 @@
 
        echo "<li>projet</li>"; // projet is always selected :)
        for ($i = 0; $i < sizeof($selectedIndices); $i++)
-	   echo "<li>" . $listWords[$selectedIndices[$i]] . "</li>";
+           echo "<li>" . $listWords[$selectedIndices[$i]] . "</li>";
        ?>
     </ul>
 
@@ -47,7 +47,15 @@
   que la plupart des discours c'est du vent.</p>
 
     <p>C'est inspiré de Franck
-    Lepage : <a href="https://youtu.be/a7ZYIUkzoqQ">youtu.be/a7ZYIUkzoqQ</a>.</p>
+    Lepage : <a href="https://youtu.be/a7ZYIUkzoqQ">youtu.be/a7ZYIUkzoqQ</a>.
+    </p>
+
+    <p>Si tu veux améliorer le générateur, il y a le php, le css et un script
+      qui fait la même chose en python ici :
+      <a href="https://github.com/greuet/scripts">
+        https://github.com/greuet/scripts</a>.
+    </p>
+
 
 
     <h1>Exemple</h1> Je viens de tirer les mots « projet », « libérer le
