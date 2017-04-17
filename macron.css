@@ -1,0 +1,28 @@
+body 
+{
+	font: 100% Trebuchet MS, Arial, Helvetica, sans-serif;
+	background: #fafafa;
+	margin: 0;
+	padding: 0;
+	text-align: justify;
+	color: #5b5b4e;
+}
+
+#nav 
+{
+    width: 700px;
+    padding: 44px 0 0 0;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#nav a 
+{
+    text-decoration: none;
+    color: #7C7C7C;
+    font-weight: bold;
+}
+#nav a:hover  
+{
+    color: #545454; 
+}
