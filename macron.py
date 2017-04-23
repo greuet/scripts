@@ -10,7 +10,8 @@ listWords = \
 "esprit d'initiative","innovation","pénibilité","souplesse",
 "libérer le travail","je n'ai pas peur de le dire","je veux être clair",
 "modernité","charte","droits et devoirs","responsabilité","combat",
- "pardon de vous le dire","efficace","digital","cluster"]
+ "pardon de vous le dire","efficace","digital","cluster","progrès",
+ "progressiste"]
 
 selectedIndices = [0]
 i = 0
