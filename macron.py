@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from random import randint
+import random
 
 nbWords = 8
 
@@ -13,13 +13,7 @@ listWords = \
  "pardon de vous le dire","efficace","digital","cluster","progrès",
  "progressiste","anti-système"]
 
-selectedIndices = [0]
-i = 0
-while i < nbWords:
-    randIndex = randint(0,len(listWords)-1)
-    if (randIndex not in selectedIndices):
-        selectedIndices.append(randIndex)
-        i = i+1
+selectedIndices = []
 
-for index in selectedIndices:
-    print " ", listWords[index]
+for word in random.sample(listWords, nbWords):
+    print " ", word
