@@ -11,7 +11,7 @@ listWords = \
 "libérer le travail","je n'ai pas peur de le dire","je veux être clair",
 "modernité","charte","droits et devoirs","responsabilité","combat",
  "pardon de vous le dire","efficace","digital","cluster","progrès",
- "progressiste","anti-système"]
+ "progressiste","anti-système","capitaliser"]
 
 selectedIndices = []
 
