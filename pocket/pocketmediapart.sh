@@ -161,12 +161,17 @@ ssh -q bakou.ze.cx "rm /var/www/pocketmdpt/*.html"
         if [ -n "$url" ]
         then
             clean_url=$(echo "$url" | sed "s/\([^?]*\)?.*/\1/")
-            printf  "\nGetting page %s... " "$clean_url"
-            get_page "$clean_url?onglet=full"
+            printf "\nGetting page %s... " "$clean_url"
+            get_page "$clean_url"
             parse_page "${output}_tmp" > "$output.html"
             scp -q "$output.html" bakou:/var/www/pocketmdpt/
             rm "${output}_tmp"
             rm "$output.html"
+            printf "done!\n"
+            printf "Sending to Pocket... "
+            # Send to pocket by sending email with ssmtp.
+            # /etc/ssmtp/ssmtp.conf and revaliases must be set correctly
+            printf "subject:\n\nhttps://bakou.ze.cx/pocketmdpt/%s\n" "$output.html" | ssmtp add@getpocket.com
             printf "done!\n"
         fi
     done
