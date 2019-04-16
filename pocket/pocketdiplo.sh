@@ -4,10 +4,7 @@ authenticate () {
     printf "Authenticating on le Monde Diplomatique..."
     if [[ ! -f /tmp/cookies_diplo.txt ]]
     then
-        wget --save-cookies /tmp/cookies_diplo.txt --keep-session-cookies --delete-after \
-             --quiet \
-             --post-data 'email=myemail%40gmail.com&mot_de_passe=XXXXXXXXXX' \
-             "https://lecteurs.mondediplo.net/?page=connexion_sso"
+        curl -s -c /tmp/cookies_diplo.txt -L 'https://lecteurs.mondediplo.net/?page=connexion_sso' -H 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' -H 'Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3' --compressed -H 'Referer: https://www.monde-diplomatique.fr/' -H 'Content-Type: application/x-www-form-urlencoded' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Upgrade-Insecure-Requests: 1' --data 'page=connexion_sso&formulaire_action=identification_sso&formulaire_action_args=ECZkXUr9XO%2B2orHSJmTwMYjXPagiMy2NYwmfnaR8BwhsWQyH%2Bj3cpmB3nl0BdQpKVstbDH0T6sx4JHHMqwd82c3Izzl67bo%3D&retour=https%3A%2F%2Fwww.monde-diplomatique.fr%2F&site_distant=https%3A%2F%2Fwww.monde-diplomatique.fr%2F&email=yourlogin%40yourmailprovider.com&mot_de_passe=YOURPASSWORD&valider=Valider' > /dev/null
         if [[ $? != 0 ]]
         then
             printf " FAIL\n"
@@ -21,8 +18,8 @@ authenticate () {
 }
 
 get_page () {
-    output=$(echo "$1" | sed "s/https:\/\/www.monde-diplomatique.fr\/[0-9]\{4\}\/[0-9]\{2\}\/\(.*\)/\1/g" | sed "s#/#_#g")
-    wget --quiet --load-cookies /tmp/cookies_diplo.txt -q "$1" -O "${output}_tmp"
+    output=$(echo "$1" | sed "s#https://www.monde-diplomatique.fr/[^/]*/[^/]*/[^/]*/\([^/]*\)#\1#")
+    curl -s -b /tmp/cookies_diplo.txt "$1" > "${output}_tmp"
 }
 
 parse_page () {
@@ -108,7 +105,7 @@ then
 fi
 
 # login
-# authenticate
+authenticate
 
 # clean previous files on server
 ssh -q bakou.ze.cx "rm /var/www/pocketmdpt/*.html"
@@ -121,12 +118,16 @@ ssh -q bakou.ze.cx "rm /var/www/pocketmdpt/*.html"
         if [ -n "$url" ]
         then
             printf  "\nGetting page %s... " "$url"
-            # output=$(echo "$url" | sed "s/https:\/\/www.monde-diplomatique.fr\/[0-9]\{4\}\/[0-9]\{2\}\/\(.*\)/\1/g" | sed "s#/#_#g")
             get_page "$url"
             parse_page "${output}_tmp" > "$output.html"
             scp -q "$output.html" bakou:/var/www/pocketmdpt/
             rm "${output}_tmp"
             rm "$output.html"
+            printf "done!\n"
+            printf "Sending to Pocket... "
+            ### Send to pocket by sending email with ssmtp.
+            ### /etc/ssmtp/ssmtp.conf and revaliases must be set correctly
+            printf "subject:\n\nhttps://bakou.ze.cx/pocketmdpt/%s\n" "$output.html" | ssmtp add@getpocket.com
             printf "done!\n"
         fi
     done
