@@ -1,10 +1,14 @@
 #!/bin/bash
 
+login="user%40mail.com"
+password="userpassword"
+
+
 authenticate () {
     printf "Authenticating on le Monde Diplomatique..."
     if [[ ! -f /tmp/cookies_diplo.txt ]]
     then
-        curl -s -c /tmp/cookies_diplo.txt -L 'https://lecteurs.mondediplo.net/?page=connexion_sso' -H 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' -H 'Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3' --compressed -H 'Referer: https://www.monde-diplomatique.fr/' -H 'Content-Type: application/x-www-form-urlencoded' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Upgrade-Insecure-Requests: 1' --data 'page=connexion_sso&formulaire_action=identification_sso&formulaire_action_args=ECZkXUr9XO%2B2orHSJmTwMYjXPagiMy2NYwmfnaR8BwhsWQyH%2Bj3cpmB3nl0BdQpKVstbDH0T6sx4JHHMqwd82c3Izzl67bo%3D&retour=https%3A%2F%2Fwww.monde-diplomatique.fr%2F&site_distant=https%3A%2F%2Fwww.monde-diplomatique.fr%2F&email=yourlogin%40yourmailprovider.com&mot_de_passe=YOURPASSWORD&valider=Valider' > /dev/null
+        curl -s -c /tmp/cookies_diplo.txt -L 'https://lecteurs.mondediplo.net/?page=connexion_sso' -H 'User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' -H 'Accept-Language: fr,fr-FR;q=0.8,en-US;q=0.5,en;q=0.3' --compressed -H 'Referer: https://www.monde-diplomatique.fr/' -H 'Content-Type: application/x-www-form-urlencoded' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Upgrade-Insecure-Requests: 1' --data "page=connexion_sso&formulaire_action=identification_sso&formulaire_action_args=ECZkXUr9XO%2B2orHSJmTwMYjXPagiMy2NYwmfnaR8BwhsWQyH%2Bj3cpmB3nl0BdQpKVstbDH0T6sx4JHHMqwd82c3Izzl67bo%3D&retour=https%3A%2F%2Fwww.monde-diplomatique.fr%2F&site_distant=https%3A%2F%2Fwww.monde-diplomatique.fr%2F&email=$login&mot_de_passe=$password&valider=Valider" > /dev/null
         if [[ $? != 0 ]]
         then
             printf " FAIL\n"
