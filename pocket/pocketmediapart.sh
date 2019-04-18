@@ -165,7 +165,7 @@ ssh -q bakou.ze.cx "rm /var/www/pocketmdpt/*.html"
         then
             clean_url=$(echo "$url" | sed "s/\([^?]*\)?.*/\1/")
             printf "\nGetting page %s... " "$clean_url"
-            get_page "$clean_url"
+            get_page "$clean_url?onglet=full"
             parse_page "${output}_tmp" > "$output.html"
             scp -q "$output.html" bakou:/var/www/pocketmdpt/
             rm "${output}_tmp"
