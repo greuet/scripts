@@ -1,6 +1,9 @@
 #!/bin/bash
 
 output=""
+login="user%40mail.com"
+password="userpassword"
+
 
 authenticate () {
     printf "Authenticating on Mediapart..."
@@ -8,7 +11,7 @@ authenticate () {
     then
         wget --save-cookies /tmp/cookies_mdpt.txt --keep-session-cookies --delete-after \
              --quiet \
-             --post-data 'name=myemail%40host.com&password=XXXXXXXXXX' \
+             --post-data "name=$login&password=$password" \
              https://www.mediapart.fr/login_check
         if [[ $? != 0 ]]
         then
