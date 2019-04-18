@@ -26,7 +26,7 @@ authenticate () {
 }
 
 get_page () {
-    output=$(echo "$1" | sed "s#https://www.mediapart.fr/journal/[a-z]*/[0-9]*/\([a-z0-9\-]*\).*#\1#")
+    output=$(echo "$1" | sed "s#https://www.mediapart.fr/journal/[a-z-]*/[0-9]*/\([a-z0-9\-]*\).*#\1#")
     wget --quiet --load-cookies /tmp/cookies_mdpt.txt -q "$1" -O "${output}_tmp"
 }
 
