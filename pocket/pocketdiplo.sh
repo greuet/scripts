@@ -24,6 +24,7 @@ authenticate () {
 get_page () {
     output=$(echo "$1" | sed "s#https://www.monde-diplomatique.fr/[^/]*/[^/]*/[^/]*/\([^/]*\)#\1#")
     curl -s -b /tmp/cookies_diplo.txt "$1" > "${output}_tmp"
+    couv=$(echo "$1" | sed "s#https://www.monde-diplomatique.fr/\([^/]*\)/\([^/]*\)/[^/]*/[^/]*#https://www.monde-diplomatique.fr/local/couv/\1-\2.jpg#")
 }
 
 parse_page () {
@@ -38,9 +39,6 @@ parse_page () {
     # Author
     grep "article:author" "$1" | \
         sed "s/<meta property=\"article:author\" content=\"\([^\"]*\)\" \/>/    <meta name=\"author\" content=\"\1\">/"
-
-    # Image
-    grep "<meta property=\"og:image\"" "$1" | sed "s/\(.*\)/    \1/"
 
     # html again
     echo "    <link href=\"https://fonts.googleapis.com/css?family=Gentium+Basic\" rel=\"stylesheet\">"
@@ -62,6 +60,10 @@ parse_page () {
     echo "    <main>"
     echo "      <article>"
 
+    # Image
+    echo "    <figure>"
+    echo "      <img src=\"$couv\" alt=\"Couverture diplo\">"
+    echo "    </figure>"
 
     # chapo
     grep "<div class=\"crayon article-chapo-[0-9]* chapo\">" "$1" | \
