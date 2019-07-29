@@ -77,8 +77,13 @@ parse_page () {
         sed "s/.*<meta property=\"og:title\" content=\"\(.*\)\" \/>/      <h2>\1<\/h2>/"
 
     # contenu
-    sed -n "/<div id=\"conteneur\">/,/<div class=\"lesauteurs\">/p" "$1" | \
-        sed -n "/mot-lettrine/,/^\t\t\t$/p" | \
+    ### seems clean for clean articles but fails on dirty ones...
+    # sed -n "/<div id=\"conteneur\">/,/<div class=\"lesauteurs\">/p" "$1" | \
+        # sed -n "/mot-lettrine/,/^\t\t\t$/p" | \
+    ###  while this one is ok for dirty articles
+    sed -n "/<div class=\"crayon article-texte/,/class=\"lesauteurs\">/p" "$1" | \
+        sed -n "/<p>/,/class=\"lesauteurs\">/p" | head -n -7 | \
+
         # images
         sed "s/<img src='local/<img src='https:\/\/www.monde-diplomatique.fr\/local/"
 
