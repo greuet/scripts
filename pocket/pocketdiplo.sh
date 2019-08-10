@@ -4,6 +4,7 @@ login="user%40mail.com"
 password="userpassword"
 
 date="missing date"
+STG_BACKUP_PATH="$HOME/Téléchargements/STG-backups/"
 
 authenticate () {
     printf "Authenticating on le Monde Diplomatique..."
@@ -113,8 +114,10 @@ parse_page () {
 # check if arguments
 if [ $# -eq 0 ]
 then
-    echo "File containing URLs is expected"
-    exit 1
+    # if no input, get url list from Firefox Simple Tab Groups extension
+    input=$(mktemp)
+    cat "$STG_BACKUP_PATH"/$(/bin/ls -t "$STG_BACKUP_PATH" | head -n 1) | sed -n /\"title\"\:\ \"Monde\ diplomatique\"/,/\"catchTabRules\"/p | grep url | sed "s/ //g" | sed "s/\"url\":\"\([^\"]*\)\",/\1/" > $input
+    set "$input"
 fi
 
 # login
