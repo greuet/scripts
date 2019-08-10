@@ -3,6 +3,7 @@
 login="user%40mail.com"
 password="userpassword"
 
+date="missing date"
 
 authenticate () {
     printf "Authenticating on le Monde Diplomatique..."
@@ -24,6 +25,7 @@ authenticate () {
 get_page () {
     output=$(echo "$1" | sed "s#https://www.monde-diplomatique.fr/[^/]*/[^/]*/[^/]*/\([^/]*\)#\1#")
     curl -s -b /tmp/cookies_diplo.txt "$1" > "${output}_tmp"
+    date=$(echo "$1" | sed "s#https://www.monde-diplomatique.fr/\([^/]*\)/\([^/]*\)/.*#\2 \1#")
     couv=$(echo "$1" | sed "s#https://www.monde-diplomatique.fr/\([^/]*\)/\([^/]*\)/[^/]*/[^/]*#https://www.monde-diplomatique.fr/local/couv/\1-\2.jpg#")
 }
 
@@ -38,7 +40,7 @@ parse_page () {
 
     # Author
     grep "article:author" "$1" | \
-        sed "s/<meta property=\"article:author\" content=\"\([^\"]*\)\" \/>/    <meta name=\"author\" content=\"\1\">/"
+        sed "s/<meta property=\"article:author\" content=\"\([^\"]*\)\" \/>/    <meta name=\"author\" content=\"\1\ @Diplo - $date\">/"
 
     # html again
     echo "    <link href=\"https://fonts.googleapis.com/css?family=Gentium+Basic\" rel=\"stylesheet\">"

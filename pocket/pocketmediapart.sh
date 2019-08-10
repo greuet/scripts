@@ -42,7 +42,7 @@ parse_page () {
 
   # Author
   grep "<meta name=\"author\"" "$1" | \
-      sed "s/.*<meta name=\"author\" content=\"\(.*\)\" \/>/    <meta name=\"author\" content=\"\1\">/"
+      sed "s/.*<meta name=\"author\" content=\"\(.*\)\" \/>/    <meta name=\"author\" content=\"\1 @Mediapart\">/"
 
   # html again
   echo "    <link href=\"https://fonts.googleapis.com/css?family=Gentium+Basic\" rel=\"stylesheet\">"
