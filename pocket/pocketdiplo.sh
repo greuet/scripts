@@ -65,7 +65,9 @@ parse_page () {
 
     # Image
     echo "    <figure>"
+    echo "    <div style=\"width:600px; height:600px; overflow: hidden\">"
     echo "      <img src=\"$couv\" alt=\"Couverture diplo\">"
+    echo "    </div>"
     echo "    </figure>"
 
     # chapo
