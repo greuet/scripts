@@ -170,7 +170,7 @@ ssh -q bakou.ze.cx "rm /var/www/pocketmdpt/*.html"
             printf "\nGetting page %s... " "$clean_url"
             get_page "$clean_url?onglet=full"
             parse_page "${output}_tmp" > "$output.html"
-            scp -q "$output.html" bakou:/var/www/pocketmdpt/
+            scp -q "$output.html" bakou.ze.cx:/var/www/pocketmdpt/
             rm "${output}_tmp"
             rm "$output.html"
             printf "done!\n"
