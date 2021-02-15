@@ -1,7 +1,10 @@
 #!/bin/bash
 
+# user/password to login to le monde diplomatique
 login="user%40mail.com"
 password="userpassword"
+# address to send from the mail to pocket
+mail="user@othermail.com"
 
 date="missing date"
 STG_BACKUP_PATH="$HOME/Téléchargements/STG-backups/"
@@ -145,7 +148,7 @@ ssh -q bakou.ze.cx "rm /var/www/pocketmdpt/*.html"
             printf "Sending to Pocket... "
             ### Send to pocket by sending email with ssmtp.
             ### /etc/ssmtp/ssmtp.conf and revaliases must be set correctly
-            printf "subject:\n\nhttps://bakou.ze.cx/pocketmdpt/%s\n" "$output.html" | ssmtp add@getpocket.com
+            printf "To:add@getpocket.com\nFrom:%s\nSubject:\n\nhttps://bakou.ze.cx/pocketmdpt/%s\n" "$mail" "$output.html" | ssmtp -t
             printf "done!\n"
         fi
     done
