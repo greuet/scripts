@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # user/password to login to le monde diplomatique
-login="user%40mail.com"
-password="userpassword"
+login="greyeu%40hotmail.com"
+password="gFp9OWPMmu6iElfEcrEe"
 # address to send from the mail to pocket
-mail="user@othermail.com"
+mail="greyeu@hotmail.com"
 
 date="missing date"
 STG_BACKUP_PATH="$HOME/Téléchargements/STG-backups/"
